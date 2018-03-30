@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+
+import datetime
 
 
 class UserManager(BaseUserManager):
@@ -45,3 +48,23 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+
+class Inventory(models.Model):
+    name = models.CharField(max_length = 200)
+    quantity = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.name
+
+
+class Rental(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    object = models.ForeignKey(Inventory, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    returned = models.BooleanField(default = False)
+    due_date = models.DateField()
+    comments = models.TextField(max_length = 500, null = True, blank = True)
+
+    def __str__(self):
+        return self.user + " - " + self.object
