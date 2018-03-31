@@ -1,1 +1,13 @@
 {% extends 'base.html' %}
+
+{% block content %}
+  {% load static %}
+  {{ name }}
+  <br>
+  {% for i in invs %}
+    {{ i }}<br>
+  {% endfor %}
+  {% for i in rents %}
+    {{ i }}<br>
+  {% endfor %}
+{% endblock %}

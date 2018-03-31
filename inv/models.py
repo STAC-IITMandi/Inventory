@@ -67,4 +67,4 @@ class Rental(models.Model):
     comments = models.TextField(max_length = 500, null = True, blank = True)
 
     def __str__(self):
-        return self.user + " - " + self.object
+        return self.user.first_name + " - " + self.object.name
