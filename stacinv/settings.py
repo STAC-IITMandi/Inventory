@@ -124,4 +124,9 @@ AUTH_USER_MODEL = 'inv.User'
 
 LOGIN_REDIRECT_URL = '/'
 
-LOGOUT_REDIRECT_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/new/'
+
+# AUTHENTICATION_BACKENDS = (
+#   'inv.backends.LoginBackend',
+#   'django.contrib.auth.backends.ModelBackend',
+# )
