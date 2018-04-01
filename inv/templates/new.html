@@ -15,6 +15,7 @@
           {% csrf_token %}
           {{ form1.as_p }}
           <button type="submit" name="log">Login</button>
+          <p>{{ error1 }}</p>
         </form>
         <!-- <label>Email
           <input type="email"/>
@@ -34,6 +35,10 @@
             </p>
           {% endfor %}
           <button type="submit" name="sign">Sign up</button>
+          <p>{{ error }}</p>
+          {% if done == True %}
+            <script>window.alert("Verify the account using registered email before logging in. ")</script>
+          {% endif %}
         </form>
         <!-- <label>Email
           <input type="email"/>

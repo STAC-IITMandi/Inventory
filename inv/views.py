@@ -12,6 +12,14 @@ from django.core.mail import EmailMessage
 from .forms import SignUpForm
 from .models import Inventory, Rental, User
 
+def IITmail(request):
+    s = request.POST['email']
+    str = s[-15:]
+    if str.lower() == "@iitmandi.ac.in":
+        return True
+    else:
+        return False
+
 def inventory(request):
     if request.user.is_authenticated:
         user = request.user
@@ -25,10 +33,17 @@ def inventory(request):
         return HttpResponseRedirect('/new/')
 
 def new(request):
+    error = ""
+    error1 = ""
+    done = False
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         form1 = LoginForm(request.POST)
-        if form.is_valid():
+        if 'sign' in request.POST and not form.is_valid():
+            error += "Email already in use. "
+        elif 'sign' in request.POST and not IITmail(request):
+            error += "Please use a IITmandi email. "
+        if form.is_valid() and IITmail(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
@@ -48,6 +63,7 @@ def new(request):
             # print(account_activation_token.make_token(user))
             email = EmailMessage(mail_subject, message, to=[to_email])
             email.send()
+            done = True
             # email = form.cleaned_data.get('email')
             # raw_password = form.cleaned_data.get('password1')
             # user = authenticate(email=email, password=raw_password)
@@ -60,10 +76,12 @@ def new(request):
             if user is not None:
                 login(request, user)
                 return redirect('inventory')
+            else:
+                error1 += "Invalid email or password/ Account not verified. "
     else:
         form = SignUpForm()
         form1 = LoginForm()
-    return render(request, 'new.html', {'form': form, 'form1': form1})
+    return render(request, 'new.html', {'form': form, 'form1': form1, 'error': error, 'error1': error1, 'done': done})
 
 def activate(request, uidb64, token):
     try:
