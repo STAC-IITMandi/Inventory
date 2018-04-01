@@ -31,9 +31,6 @@
             <p>
               {{ field.label_tag }}<br>
               {{ field }}
-              {% for error in field.errors %}
-                <p style="color: red">{{ error }}</p>
-              {% endfor %}
             </p>
           {% endfor %}
           <button type="submit" name="sign">Sign up</button>

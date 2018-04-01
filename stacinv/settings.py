@@ -126,7 +126,8 @@ LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/new/'
 
-# AUTHENTICATION_BACKENDS = (
-#   'inv.backends.LoginBackend',
-#   'django.contrib.auth.backends.ModelBackend',
-# )
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'varunsinghs2021'
+EMAIL_HOST_PASSWORD = 'varunvaruns9'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
