@@ -14,8 +14,8 @@ from .models import Inventory, Rental, User
 
 def IITmail(request):
     s = request.POST['email']
-    str = s[-15:]
-    if str.lower() == "@iitmandi.ac.in":
+    str = s[-14:]
+    if str.lower() == "iitmandi.ac.in":
         return True
     else:
         return False
@@ -40,9 +40,9 @@ def new(request):
         form = SignUpForm(request.POST)
         form1 = LoginForm(request.POST)
         if 'sign' in request.POST and not form.is_valid():
-            error += "Email already in use. "
+            error += "Invalid information/ Email already in use."
         elif 'sign' in request.POST and not IITmail(request):
-            error += "Please use a IITmandi email. "
+            error += "Please use an IITmandi email. "
         if form.is_valid() and IITmail(request):
             user = form.save(commit=False)
             user.is_active = False

@@ -1,0 +1,7 @@
+table {
+  margin: 0 auto;
+}
+
+table thead tr th {
+  padding: 0 100px;
+}
