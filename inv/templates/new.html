@@ -2,8 +2,69 @@
 
 {% block content %}
   {% load static %}
+
   <link rel="stylesheet" href="{% static 'style.css' %}">
-  <div class="panel">
+  <div class="materialContainer">
+    <div class="box">
+      <!-- <form method="post">
+        {% csrf_token %}
+        {{ form1.as_p }}
+        <button type="submit" name="log">Login</button>
+        <p>{{ error1 }}</p>
+      </form> -->
+      <div class="title">LOGIN</div>
+
+      <form method="post">
+        {% csrf_token %}
+
+        {% for field in form1 %}
+          <div class="input">
+             <label for="name">{{ field.label_tag }}</label>
+             {{ field }}
+             <span class="spin"></span>
+          </div>
+        {% endfor %}
+
+        <div class="button login">
+           <button name="log"><span>GO</span> <i class="fa fa-check"></i></button>
+        </div>
+      </form>
+
+      <img src="{% static 'stac.jpg' %}" height="145px">
+
+    </div>
+
+    <div class="overbox">
+      <div class="material-button alt-2"><span class="shape"></span></div>
+
+      <div class="title">REGISTER</div>
+
+      <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+          <div class="input">
+             <label for="regname">{{ field.label_tag }}</label>
+             {{ field }}
+             <span class="spin"></span>
+          </div>
+        {% endfor %}
+
+        <div class="button" name="sign">
+           <button><span>NEXT</span></button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="{% static 'index.js' %}"></script>
+
+
+
+  <!-- <div class="panel">
     <ul class="panel__menu" id="menu">
       <hr/>
       <li id="signIn"> <a href="#">Login</a></li>
@@ -17,13 +78,6 @@
           <button type="submit" name="log">Login</button>
           <p>{{ error1 }}</p>
         </form>
-        <!-- <label>Email
-          <input type="email"/>
-        </label>
-        <label>Password
-          <input type="password"/>
-        </label>
-        <input type="submit"/> -->
       </div>
       <div class="panel__box" id="signUpBox">
         <form method="post">
@@ -40,18 +94,8 @@
             <script>window.alert("Verify the account using registered email before logging in. ")</script>
           {% endif %}
         </form>
-        <!-- <label>Email
-          <input type="email"/>
-        </label>
-        <label>Password
-          <input type="password"/>
-        </label>
-        <label>Confirm password
-          <input type="password"/>
-        </label>
-        <input type="submit"/> -->
       </div>
     </div>
-  </div>
-  <script src="{% static 'index.js' %}"></script>
+  </div> -->
+
 {% endblock %}
