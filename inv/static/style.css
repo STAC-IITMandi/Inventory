@@ -406,6 +406,7 @@ html {
 
 .overbox input:-webkit-autofill {
     box-shadow: 0 0 0 30px #ED2553 inset;
+    -webkit-text-fill-color: white;
 }
 
 .box label label {

@@ -36,6 +36,8 @@ def new(request):
     error = ""
     error1 = ""
     done = False
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         form1 = LoginForm(request.POST)
