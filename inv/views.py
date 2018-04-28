@@ -24,6 +24,15 @@ def IITmail(request):
     else:
         return False
 
+def checkAvailable(request):
+    myobj = Inventory.objects.get(pk = request.POST['object'])
+    if myobj.quantity >= (int)(request.POST['quantity']):
+        myobj.quantity = myobj.quantity - (int)(request.POST['quantity'])
+        myobj.save()
+        return True
+    else:
+        return False
+
 def inventory(request):
     if request.user.is_authenticated:
         user = request.user
@@ -31,13 +40,17 @@ def inventory(request):
         rents = Rental.objects.filter(user = user)
         name = request.user.get_short_name()
         newrent = RentForm(initial = {'user': user.id})
+        error = ""
 
         if request.method == 'POST':
             newrent = RentForm(request.POST, initial = {'user': user})
             if 'new' in request.POST and newrent.is_valid():
-                newrent.save()
+                if (checkAvailable(request)):
+                    newrent.save()
+                else:
+                    error += "Quantity not available."
 
-        return render(request, 'index.html', {'name': name, 'invs': invs, 'rents': rents, 'newrent': newrent, 'user': user, })
+        return render(request, 'index.html', {'name': name, 'invs': invs, 'rents': rents, 'newrent': newrent, 'error': error})
     else:
         return HttpResponseRedirect('/new/')
 
