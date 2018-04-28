@@ -419,3 +419,12 @@ html {
 .box .spin {
   width: 100%;
 }
+
+.box input {
+  padding-top: 12px;
+  font-size: 22px;
+}
+
+.overbox input {
+  font-size: 22px;
+}

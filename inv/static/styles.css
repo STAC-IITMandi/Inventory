@@ -1,7 +1,28 @@
-table {
-  margin: 0 auto;
+.logout-button {
+  display: inline-block;
+  position: absolute;
+  left: 92.7%;
+  top: 2%
 }
 
-table thead tr th {
-  padding: 0 100px;
+.name-chip {
+  display: inline-block;
+  position: absolute;
+  left: 80%;
+  text-align:right;
+  align-items: flex-end;
+}
+
+.aa {
+  text-align: right;
+}
+
+.mdl-card {
+  width: 90%;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: #d8d8d8;
 }

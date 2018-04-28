@@ -64,6 +64,7 @@ class Rental(models.Model):
     quantity = models.IntegerField()
     returned = models.BooleanField(default = False)
     due_date = models.DateField()
+    issue_date = models.DateField(default = datetime.date.today)
     comments = models.TextField(max_length = 500, null = True, blank = True)
 
     def __str__(self):
