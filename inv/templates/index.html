@@ -39,8 +39,9 @@
                </div>
             {% else %}
                <label>{{ field.label_tag }}</label>
-               {{ field }}
+               {{ field }}<br>
             {% endif %}
+            {{ error }}
           {% endfor %}
           <button type="submit" name="new">Submit</button>
         </form>
