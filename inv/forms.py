@@ -29,10 +29,14 @@ class Return(forms.ModelForm):
 
 class RentForm(forms.ModelForm):
     user = forms.ModelChoiceField(queryset = User.objects.all(), required = False)
-    object = forms.ModelChoiceField(queryset = Inventory.objects.all())
-    quantity = forms.IntegerField()
-    due_date = forms.DateField(widget = forms.SelectDateWidget())
+    object = forms.ModelChoiceField(queryset = Inventory.objects.all(), widget=forms.Select(attrs={'class': 'mdl-textfield__input'}))
+    quantity = forms.IntegerField(widget = forms.NumberInput(attrs={'class': 'mdl-textfield__input'}))
+    due_date = forms.DateField(widget = forms.SelectDateWidget(attrs={'class': 'mdl-textfield__input'}))
 
     class Meta:
         model = Rental
         fields = ('user', 'object', 'quantity', 'due_date')
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label_suffix', '')
+        super(RentForm, self).__init__(*args, **kwargs)

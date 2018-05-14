@@ -26,7 +26,7 @@ def IITmail(request):
 
 def checkAvailable(request):
     myobj = Inventory.objects.get(pk = request.POST['object'])
-    if myobj.quantity >= (int)(request.POST['quantity']):
+    if myobj.quantity >= (int)(request.POST['quantity']) and (int)(request.POST['quantity']) > 0:
         myobj.quantity = myobj.quantity - (int)(request.POST['quantity'])
         myobj.save()
         return True

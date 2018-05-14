@@ -8,11 +8,11 @@
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row aa">
       <!-- Title -->
-      <button type="button" class="mdl-chip name-chip">
+      <!-- <button type="button" class="mdl-chip name-chip">
         <span class="mdl-chip__text aa">{{ name }}</span>
-      </button>
+      </button> -->
       <a href="{% url 'logout' %}">
-        <span class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent logout-button">logout</span>
+        <span class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent logout-button">{{ name }}<i class="material-icons">forward</i></span>
       </a>
       <span class="mdl-layout-title">STAC Inventory Management System</span>
     </div>
@@ -34,12 +34,14 @@
           {% csrf_token %}
           {% for field in newrent %}
             {% if forloop.counter == 1 %}
-               <div style="display: none;">
-                 {{ field }}
-               </div>
+              <div style="display: none;">
+                {{ field }}
+              </div>
             {% else %}
-               <label>{{ field.label_tag }}</label>
-               {{ field }}<br>
+              <label>{{ field.label_tag }}</label>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label object">
+                {{ field }}
+              </div>
             {% endif %}
           {% endfor %}
           <button type="submit" name="new">Submit</button>
@@ -50,4 +52,5 @@
   </main>
 </div>
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<script src="{% static 'index1.js' %}"></script>
 {% endblock %}
