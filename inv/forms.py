@@ -13,14 +13,25 @@ class SignUpForm(UserCreationForm):
         fields = ('email', 'first_name', 'last_name', 'password1', 'password2', )
 
 
-class Comment(forms.ModelForm):
+class Comment(forms.Form):
+    pk = forms.IntegerField(widget = forms.HiddenInput())
+    text = forms.CharField(max_length = 500)
+
+
+class Return(forms.Form):
+    pk = forms.IntegerField(widget = forms.HiddenInput())
+    ret = forms.BooleanField(widget = forms.HiddenInput(), required=False)
+
+
+class CommentForm(forms.ModelForm):
+    comments = forms.CharField(max_length = 500)
 
     class Meta:
         model = Rental
         fields = ('comments', )
 
 
-class Return(forms.ModelForm):
+class ReturnForm(forms.ModelForm):
 
     class Meta:
         model = Rental

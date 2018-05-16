@@ -8,13 +8,10 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
-from django.forms import formset_factory
 
-from .forms import SignUpForm, Comment, Return, RentForm
+from .forms import SignUpForm, Comment, Return, RentForm, CommentForm, ReturnForm
 from .models import Inventory, Rental, User
 
-CommentSet = formset_factory(Comment)
-ReturnSet = formset_factory(Return)
 
 def IITmail(request):
     s = request.POST['email']
@@ -44,13 +41,46 @@ def inventory(request):
 
         if request.method == 'POST':
             newrent = RentForm(request.POST, initial = {'user': user})
+            allcomments = []
+            allreturns= []
+            for rent in rents:
+                aForm = [Comment(request.POST, initial = {'pk': rent.pk})]
+                bForm = [Return(request.POST, initial = {'pk': rent.pk})]
+                allreturns += bForm
+                allcomments += aForm
+            if len(allcomments)>0:
+                aForm = allcomments[0]
+                bForm = allreturns[0]
+                if aForm.is_valid():
+                    txt = aForm['text'].value()
+                    pk = aForm['pk'].value()
+                    m = Rental.objects.get(pk=pk)
+                    f = CommentForm({'id': pk, 'comments': txt}, instance = m)
+                    if f.is_valid():
+                        f.save()
+                if bForm.is_valid():
+                    print('k')
+                    pk = bForm['pk'].value()
+                    m = Rental.objects.get(pk=pk)
+                    f = ReturnForm({'id': pk, 'returned': True}, instance = m)
+                    if f.is_valid():
+                        f.save()
             if 'new' in request.POST and newrent.is_valid():
                 if (checkAvailable(request)):
                     newrent.save()
                 else:
                     error += "Quantity not available."
+        invs = Inventory.objects.all()
+        rents = Rental.objects.filter(user = user)
+        allcomments = []
+        allreturns= []
+        for rent in rents:
+            aForm = [Comment(initial = {'pk': rent.pk})]
+            bForm = [Return(initial = {'pk': rent.pk, 'ret': rent.returned})]
+            allreturns += bForm
+            allcomments += aForm
 
-        return render(request, 'index.html', {'name': name, 'invs': invs, 'rents': rents, 'newrent': newrent, 'error': error})
+        return render(request, 'index.html', {'name': name, 'invs': invs, 'rents': rents, 'newrent': newrent, 'error': error, 'allcomments': allcomments, 'allreturns': allreturns, })
     else:
         return HttpResponseRedirect('/new/')
 

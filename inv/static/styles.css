@@ -26,3 +26,7 @@
 body {
   background-color: #d8d8d8;
 }
+
+.page-content {
+  margin: 2em;
+}

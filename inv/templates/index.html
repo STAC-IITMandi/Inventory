@@ -25,7 +25,58 @@
   <main class="mdl-layout__content">
     <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
       <div class="page-content">
+        {% for form in allreturns %}
+          {% if form.ret.value == False %}
+            {% for rent in rents %}
+              {% if rent.pk == form.pk.value %}
+                {{ rent.object }}
+                {{ rent.quantity }}
+                {{ rent.returned }}
+                {{ rent.issue_date }}
+                {{ rent.due_date }}
+                {{ rent.comments }}
+              {% endif %}
+            {% endfor %}
+            <form method="post">
+              {% csrf_token %}
+              {{ form }}
+              <button type="submit">Return</button>
+            </form>
+            {% for formm in allcomments %}
+              {% if formm.pk.value == form.pk.value %}
+                <form method="post">
+                  {% csrf_token %}
+                  {{ formm }}<br>
+                  <button type="submit">Submit</button>
+                </form>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
 
+        {% for form in allreturns %}
+          {% if form.ret.value == True %}
+            {% for rent in rents %}
+              {% if rent.pk == form.pk.value %}
+                {{ rent.object }}
+                {{ rent.quantity }}
+                {{ rent.returned }}
+                {{ rent.issue_date }}
+                {{ rent.due_date }}
+                {{ rent.comments }}
+              {% endif %}
+            {% endfor %}
+            {% for formm in allcomments %}
+              {% if formm.pk.value == form.pk.value %}
+                <form method="post">
+                  {% csrf_token %}
+                  {{ formm }}<br>
+                  <button type="submit">Submit</button>
+                </form>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
       </div>
     </section>
     <section class="mdl-layout__tab-panel" id="fixed-tab-2">
@@ -41,7 +92,7 @@
               <label>{{ field.label_tag }}</label>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label object">
                 {{ field }}
-              </div>
+              </div><br>
             {% endif %}
           {% endfor %}
           <button type="submit" name="new">Submit</button>
