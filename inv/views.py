@@ -33,6 +33,7 @@ def checkAvailable(request):
 def inventory(request):
     if request.user.is_authenticated:
         user = request.user
+        print(user)
         invs = Inventory.objects.all()
         rents = Rental.objects.filter(user = user)
         name = request.user.get_short_name()
@@ -40,7 +41,7 @@ def inventory(request):
         error = ""
 
         if request.method == 'POST':
-            newrent = RentForm(request.POST, initial = {'user': user})
+            newrent = RentForm(request.POST, initial = {'user': user.id})
             allcomments = []
             allreturns= []
 
@@ -73,6 +74,7 @@ def inventory(request):
                     error += "Quantity not available."
         invs = Inventory.objects.all()
         rents = Rental.objects.filter(user = user)
+        newrent = RentForm(initial = {'user': user.id})
         allcomments = []
         allreturns= []
         for rent in rents:
