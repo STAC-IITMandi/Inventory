@@ -30,3 +30,25 @@ body {
 .page-content {
   margin: 2em;
 }
+
+table > tbody > tr:hover {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+table {
+  margin: 2em 0;
+  background-color: white;
+}
+
+p > form > label {
+  font-size: 200%;
+}
+
+h4 {
+  color: black;
+  font-weight: bold;
+}
+
+.modal {
+  margin-top: 4em !important;
+}

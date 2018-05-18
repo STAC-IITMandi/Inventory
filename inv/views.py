@@ -43,6 +43,7 @@ def inventory(request):
             newrent = RentForm(request.POST, initial = {'user': user})
             allcomments = []
             allreturns= []
+
             for rent in rents:
                 aForm = [Comment(request.POST, initial = {'pk': rent.pk})]
                 bForm = [Return(request.POST, initial = {'pk': rent.pk})]
@@ -51,15 +52,14 @@ def inventory(request):
             if len(allcomments)>0:
                 aForm = allcomments[0]
                 bForm = allreturns[0]
-                if aForm.is_valid():
+                if aForm.is_valid() and 'comment' in request.POST:
                     txt = aForm['text'].value()
                     pk = aForm['pk'].value()
                     m = Rental.objects.get(pk=pk)
                     f = CommentForm({'id': pk, 'comments': txt}, instance = m)
                     if f.is_valid():
                         f.save()
-                if bForm.is_valid():
-                    print('k')
+                if bForm.is_valid() and 'return' in request.POST:
                     pk = bForm['pk'].value()
                     m = Rental.objects.get(pk=pk)
                     f = ReturnForm({'id': pk, 'returned': True}, instance = m)
