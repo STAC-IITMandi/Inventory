@@ -66,6 +66,7 @@ def inventory(request):
                     if f.is_valid():
                         f.save()
             if 'new' in request.POST and newrent.is_valid():
+                newrent.cleaned_data['user'] = user
                 if (checkAvailable(request)):
                     newrent.save()
                 else:
