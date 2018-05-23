@@ -22,6 +22,12 @@
       {{ error }}
     </div>
   {% endif %}
+  {% if error1 == "Invalid email or password/ Account not verified. " %}
+    <div class="alerte">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      {{ error1 }}
+    </div>
+  {% endif %}
   <div class="materialContainer">
     <div class="box">
 
