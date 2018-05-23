@@ -4,14 +4,27 @@
   {% load static %}
 
   <link rel="stylesheet" href="{% static 'style.css' %}">
+  {% if done == True %}
+    <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      Please confirm your email.
+    </div>
+  {% endif %}
+  {% if error == "Invalid information/ Email already in use." %}
+    <div class="alerte">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      {{ error }}
+    </div>
+  {% endif %}
+  {% if error == "Please use an IITmandi email." %}
+    <div class="alerte">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      {{ error }}
+    </div>
+  {% endif %}
   <div class="materialContainer">
     <div class="box">
-      <!-- <form method="post">
-        {% csrf_token %}
-        {{ form1.as_p }}
-        <button type="submit" name="log">Login</button>
-        <p>{{ error1 }}</p>
-      </form> -->
+
       <div class="title">LOGIN</div>
 
       <form method="post">
@@ -50,8 +63,8 @@
           </div>
         {% endfor %}
 
-        <div class="button" name="sign">
-           <button><span>NEXT</span></button>
+        <div class="button">
+           <button name="sign"><span>NEXT</span></button>
         </div>
 
       </form>
@@ -61,41 +74,5 @@
   </div>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
   <script src="{% static 'index.js' %}"></script>
-
-
-
-  <!-- <div class="panel">
-    <ul class="panel__menu" id="menu">
-      <hr/>
-      <li id="signIn"> <a href="#">Login</a></li>
-      <li id="signUp"><a href="#">Sign up</a></li>
-    </ul>
-    <div class="panel__wrap">
-      <div class="panel__box active" id="signInBox">
-        <form method="post">
-          {% csrf_token %}
-          {{ form1.as_p }}
-          <button type="submit" name="log">Login</button>
-          <p>{{ error1 }}</p>
-        </form>
-      </div>
-      <div class="panel__box" id="signUpBox">
-        <form method="post">
-          {% csrf_token %}
-          {% for field in form %}
-            <p>
-              {{ field.label_tag }}<br>
-              {{ field }}
-            </p>
-          {% endfor %}
-          <button type="submit" name="sign">Sign up</button>
-          <p>{{ error }}</p>
-          {% if done == True %}
-            <script>window.alert("Verify the account using registered email before logging in. ")</script>
-          {% endif %}
-        </form>
-      </div>
-    </div>
-  </div> -->
 
 {% endblock %}

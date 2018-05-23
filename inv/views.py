@@ -99,7 +99,7 @@ def new(request):
         if 'sign' in request.POST and not form.is_valid():
             error += "Invalid information/ Email already in use."
         elif 'sign' in request.POST and not IITmail(request):
-            error += "Please use an IITmandi email. "
+            error += "Please use an IITmandi email."
         if form.is_valid() and IITmail(request):
             user = form.save(commit=False)
             user.is_active = False
