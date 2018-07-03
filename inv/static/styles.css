@@ -57,6 +57,10 @@ td #id_text {
   width: 75%;
 }
 
+.booked {
+  height: 340px;
+}
+
 @media max_width:992px {
   #id_text {
     width: 167px;
