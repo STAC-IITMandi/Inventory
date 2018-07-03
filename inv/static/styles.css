@@ -52,3 +52,13 @@ h4 {
 .modal {
   margin-top: 4em !important;
 }
+
+td #id_text {
+  width: 75%;
+}
+
+@media max_width:992px {
+  #id_text {
+    width: 167px;
+  }
+}
