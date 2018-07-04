@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import dj_database_url
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +23,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = '%d@k7irdptc)vgz=-sk5e==5&%op()eqwrxjp&#dl)g1ybn4d('
-import os
 SECRET_KEY = os.environ.get(
     'DJANGO_SECRET_KEY', '%d@k7irdptc)vgz=-sk5e==5&%op()eqwrxjp&#dl)g1ybn4d(')
 
@@ -132,7 +133,6 @@ EMAIL_HOST_PASSWORD = 'SG.dT6oAE_fRtG6yWtpgOE1hQ.gwmF8dB3gJAUROvC36pKHfg30sCuDiT
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
