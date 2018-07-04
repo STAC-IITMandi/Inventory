@@ -10,21 +10,22 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'password1', 'password2', )
+        fields = ('email', 'first_name', 'last_name',
+                  'password1', 'password2', )
 
 
 class Comment(forms.Form):
-    pk = forms.IntegerField(widget = forms.HiddenInput())
-    text = forms.CharField(max_length = 500)
+    pk = forms.IntegerField(widget=forms.HiddenInput())
+    text = forms.CharField(max_length=500)
 
 
 class Return(forms.Form):
-    pk = forms.IntegerField(widget = forms.HiddenInput())
-    ret = forms.BooleanField(widget = forms.HiddenInput(), required=False)
+    pk = forms.IntegerField(widget=forms.HiddenInput())
+    ret = forms.BooleanField(widget=forms.HiddenInput(), required=False)
 
 
 class CommentForm(forms.ModelForm):
-    comments = forms.CharField(max_length = 500)
+    comments = forms.CharField(max_length=500)
 
     class Meta:
         model = Rental
@@ -39,10 +40,13 @@ class ReturnForm(forms.ModelForm):
 
 
 class RentForm(forms.ModelForm):
-    user = forms.ModelChoiceField(queryset = User.objects.all(), required = False)
-    object = forms.ModelChoiceField(queryset = Inventory.objects.all(), widget=forms.Select(attrs={'class': 'mdl-textfield__input'}))
-    quantity = forms.IntegerField(widget = forms.NumberInput(attrs={'class': 'mdl-textfield__input'}))
-    due_date = forms.DateField(widget = forms.SelectDateWidget(attrs={'class': 'mdl-textfield__input'}))
+    user = forms.ModelChoiceField(queryset=User.objects.all(), required=False)
+    object = forms.ModelChoiceField(queryset=Inventory.objects.all(
+    ), widget=forms.Select(attrs={'class': 'mdl-textfield__input'}))
+    quantity = forms.IntegerField(widget=forms.NumberInput(
+        attrs={'class': 'mdl-textfield__input'}))
+    due_date = forms.DateField(widget=forms.SelectDateWidget(
+        attrs={'class': 'mdl-textfield__input'}))
 
     class Meta:
         model = Rental

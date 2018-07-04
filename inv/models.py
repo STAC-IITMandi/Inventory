@@ -51,7 +51,7 @@ class User(AbstractUser):
 
 
 class Inventory(models.Model):
-    name = models.CharField(max_length = 200)
+    name = models.CharField(max_length=200)
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
@@ -59,13 +59,14 @@ class Inventory(models.Model):
 
 
 class Rental(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     object = models.ForeignKey(Inventory, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    returned = models.BooleanField(default = False)
+    returned = models.BooleanField(default=False)
     due_date = models.DateField()
-    issue_date = models.DateField(default = datetime.date.today)
-    comments = models.TextField(max_length = 500, null = True, blank = True)
+    issue_date = models.DateField(default=datetime.date.today)
+    comments = models.TextField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return self.user.first_name + " - " + self.object.name

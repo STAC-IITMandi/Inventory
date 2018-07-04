@@ -21,8 +21,9 @@ def IITmail(request):
     else:
         return False
 
+
 def checkAvailable(request):
-    myobj = Inventory.objects.get(pk = request.POST['object'])
+    myobj = Inventory.objects.get(pk=request.POST['object'])
     if myobj.quantity >= (int)(request.POST['quantity']) and (int)(request.POST['quantity']) > 0:
         myobj.quantity = myobj.quantity - (int)(request.POST['quantity'])
         myobj.save()
@@ -30,40 +31,41 @@ def checkAvailable(request):
     else:
         return False
 
+
 def inventory(request):
     if request.user.is_authenticated:
         user = request.user
         print(user)
         invs = Inventory.objects.all()
-        rents = Rental.objects.filter(user = user)
+        rents = Rental.objects.filter(user=user)
         name = request.user.get_short_name()
-        newrent = RentForm(initial = {'user': user.id})
+        newrent = RentForm(initial={'user': user.id})
         error = ""
 
         if request.method == 'POST':
-            newrent = RentForm(request.POST, initial = {'user': user.id})
+            newrent = RentForm(request.POST, initial={'user': user.id})
             allcomments = []
-            allreturns= []
+            allreturns = []
 
             for rent in rents:
-                aForm = [Comment(request.POST, initial = {'pk': rent.pk})]
-                bForm = [Return(request.POST, initial = {'pk': rent.pk})]
+                aForm = [Comment(request.POST, initial={'pk': rent.pk})]
+                bForm = [Return(request.POST, initial={'pk': rent.pk})]
                 allreturns += bForm
                 allcomments += aForm
-            if len(allcomments)>0:
+            if len(allcomments) > 0:
                 aForm = allcomments[0]
                 bForm = allreturns[0]
                 if aForm.is_valid() and 'comment' in request.POST:
                     txt = aForm['text'].value()
                     pk = aForm['pk'].value()
                     m = Rental.objects.get(pk=pk)
-                    f = CommentForm({'id': pk, 'comments': txt}, instance = m)
+                    f = CommentForm({'id': pk, 'comments': txt}, instance=m)
                     if f.is_valid():
                         f.save()
                 if bForm.is_valid() and 'return' in request.POST:
                     pk = bForm['pk'].value()
                     m = Rental.objects.get(pk=pk)
-                    f = ReturnForm({'id': pk, 'returned': True}, instance = m)
+                    f = ReturnForm({'id': pk, 'returned': True}, instance=m)
                     if f.is_valid():
                         f.save()
             if 'new' in request.POST and newrent.is_valid():
@@ -73,19 +75,20 @@ def inventory(request):
                 else:
                     error += "Quantity not available."
         invs = Inventory.objects.all()
-        rents = Rental.objects.filter(user = user)
-        newrent = RentForm(initial = {'user': user.id})
+        rents = Rental.objects.filter(user=user)
+        newrent = RentForm(initial={'user': user.id})
         allcomments = []
-        allreturns= []
+        allreturns = []
         for rent in rents:
-            aForm = [Comment(initial = {'pk': rent.pk})]
-            bForm = [Return(initial = {'pk': rent.pk, 'ret': rent.returned})]
+            aForm = [Comment(initial={'pk': rent.pk})]
+            bForm = [Return(initial={'pk': rent.pk, 'ret': rent.returned})]
             allreturns += bForm
             allcomments += aForm
 
         return render(request, 'index.html', {'name': name, 'invs': invs, 'rents': rents, 'newrent': newrent, 'error': error, 'allcomments': allcomments, 'allreturns': allreturns, })
     else:
         return HttpResponseRedirect('/new/')
+
 
 def new(request):
     error = ""
@@ -109,8 +112,8 @@ def new(request):
             message = render_to_string('acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
-                'uid':user.pk,
-                'token':account_activation_token.make_token(user),
+                'uid': user.pk,
+                'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(mail_subject, message, to=[to_email])
@@ -129,6 +132,7 @@ def new(request):
         form = SignUpForm()
         form1 = LoginForm()
     return render(request, 'new.html', {'form': form, 'form1': form1, 'error': error, 'error1': error1, 'done': done})
+
 
 def activate(request, uidb64, token):
     try:
