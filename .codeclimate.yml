@@ -1,0 +1,12 @@
+version: "2"
+plugins:
+  duplication:
+    enabled: false
+  fixme:
+    enabled: true
+  radon:
+    enabled: false
+checks:
+  argument-count:
+    config:
+      threshold: 8
