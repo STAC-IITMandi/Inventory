@@ -21,3 +21,7 @@ You can contribute to both backend or frontend. Feel free to contact @varunvarun
 5. Open a pull request.
 
 The pull request must meet certain standards to be accepted. Ask any administrator to review the PR.
+
+We use git so learn its basics before trying to contribute code. Here are some useful resources: [try.github.io](https://try.github.io/)
+
+Django official docs: [Django docs 2.0(en)](https://docs.djangoproject.com/en/2.0/)
